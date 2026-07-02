@@ -1,0 +1,120 @@
+*{
+    
+    box-sizing: border-box;
+}
+
+:root {
+  /* Content */
+  --content-primary: #ffffff;
+  --content-secondary: #c7c9cc;
+  --content-tertiary: #d9d9d9;
+  --content-brand: #c58de7;
+  --color-inverse: #030203;
+
+  /* Background */
+  --background-primary: #020202;
+  --background-secondary: #111012;
+  --background-tertiary: #24222e;
+  --background-brand: #c58de7;
+  --background-gray: #3d3d3d;
+
+  /* Accent */
+  --accent-pink: #d586e0;
+  --accent-blue: #91a1fa;
+  --accent-green: #77c0af;
+  --accent-lime: #d1dc97;
+  --accent-red: #e9a9b3;
+
+  /* Gradients */
+  --gradient-border: linear-gradient(
+    90deg,
+    #77c0af 0%,
+    #d1dc97 14.84%,
+    #e9a9b3 35.15%,
+    #d586e0 65.79%,
+    #91a1fa 84.58%
+  );
+
+  --gradient-background: linear-gradient(
+    90deg,
+    #d586e0 0%,
+    #91a1fa 90.83%
+  );
+
+  --gradient-content: linear-gradient(
+    90deg,
+    #c7c9cc 0%,
+    #3d3d3d 100%
+  );
+}
+
+.text-content-primary {
+  color: var(--content-primary);
+}
+
+.text-content-secondary {
+  color: var(--content-secondary);
+}
+
+.text-content-tertiary {
+  color: var(--content-tertiary);
+}
+
+.text-content-brand {
+  color: var(--content-brand);
+}
+
+.text-color-inverse {
+  color: var(--color-inverse);
+}
+
+.text-accent-pink {
+  color: var(--accent-pink);
+}
+
+.text-accent-blue {
+  color: var(--accent-blue);
+}
+
+.text-accent-green {
+  color: var(--accent-green);
+}
+
+.text-accent-lime {
+  color: var(--accent-lime);
+}
+.text-gradient-content{
+    color: var(--gradient-content);
+}
+.text-accent-red {
+  color: var(--accent-red);
+}
+
+.text-content-primary {
+  color: var(--content-primary);
+}
+
+.bg-content-primary {
+  background-color: var(--content-primary);
+}
+
+.bg-background-gray {
+  background-color: var(--background-gray);
+}
+
+.container {
+  width: min(80%, 1120px);
+  margin-inline: auto;
+}
+
+.font-sora{
+    font-family: "Sora", sans-serif;
+}
+
+.font-roboto-mono{
+    font-family: "Roboto Mono", monospace;
+}
+
+.font-roboto-flex{
+    font-family: "Roboto Flex", sans-serif;
+}

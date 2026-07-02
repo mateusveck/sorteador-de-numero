@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteador de numeros</title>
+</head>
+<body>
+    <header class="container flex gap-6 items-center my-15">
+        <img src="assets/imgs/Frame.svg" alt="" class="w-10">
+        <h2 class="text-4xl font-bold font-sora text-white">NUMBERS</h2>
+    </header>
+
+    <main class="container my-30 grid grid-cols-2 gap-10">
+        <section>
+            <span class="font-roboto-mono font-semibold text-gray-300">ONLINE - GRATUITO</span>
+            <h2 class="text-white font-extrabold font-sora text-[4rem]">SORTEADOR DE NÚMEROS</h2>
+            <div class="flex flex-col relative my-10">
+                <img src="assets/imgs/Frame2.svg" alt="" class="absolute left-[-25px]">
+                <span class="text-purple-300 font-semibold font-sora">Como funciona o sorteador de números?</span>
+                <span class="text-white font-sora text-sm">O sorteador utiliza um algoritmo de geração aleatória para criar números dentro do intervalo especificado pelo usuário.</span>
+            </div>
+
+            <div class="flex flex-col relative">
+                <img src="assets/imgs/Frame2.svg" alt="" class="absolute left-[-25px]">
+                <span class="text-purple-300 font-semibold font-sora">Posso escolher o intervalo dos números?</span>
+                <span class="text-white font-sora text-sm">Sim, você pode definir os valores mínimo e máximo para o intervalo dos números sorteados.</span>
+            </div>
+        </section>
+
+        <section id="drawSection" class="my-10">
+             <h3 class="text-white font-semibold text-2xl font-sora">QUERO SORTEAR:</h3>
+             <span class="text-white font-sora text-sm">defina o intervalo e a quantidade de números, clique em "Sortear" e veja os resultados na tela. É rápido e fácil!</span>
+
+                <form id="drawForm" novalidate>
+                    <div class="flex gap-10">
+                        <div class="flex flex-col gap-4 my-10 items-center ">
+                            <label for="quantity" class="text-white font-sora font-semibold">NÚMEROS</label>
+                            <input type="number" class="bg-[var(--background-secondary)] w-[100px] h-[80px] text-white text-5xl text-center font-sora font-extrabold outline-none rounded-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" placeholder="2" id="quantity" min="1" max="9">
+                        </div>
+                        
+                        <div class="flex flex-col gap-4 my-10 items-center ">
+                            <label for="of" class="text-white font-sora font-semibold">DE</label>
+                            <input type="number" class="bg-[var(--background-secondary)] w-[100px] h-[80px] text-white text-5xl text-center font-sora font-extrabold outline-none rounded-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" placeholder="1" id="of">
+                        </div>
+                        
+                        <div class="flex flex-col gap-4 my-10 items-center ">
+                            <label for="until" class="text-white font-sora font-semibold">ATÉ</label>
+                            <input type="number" class="bg-[var(--background-secondary)] w-[100px] h-[80px] text-white text-5xl text-center font-sora font-extrabold outline-none rounded-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" placeholder="100" id="until">
+                        </div>
+                        
+                    </div>
+
+                    <label class="inline-flex items-center gap-[8px] cursor-pointer select-none">
+                                    <input type="checkbox" class="sr-only peer" checked id="noRepeat"/>
+
+                                    <span
+                                        class="relative block
+                                        w-[31px] h-[20px]
+                                        rounded-full
+                                        bg-background-gray
+                                        overflow-hidden
+                                        transition-colors duration-300
+
+                                        peer-checked:[&>.toggle-gradient]:opacity-100
+                                        peer-checked:[&>.toggle-ball]:translate-x-[11px]">
+
+                                        <span
+                                        class="toggle-gradient
+                                            absolute inset-0
+                                            bg-[image:var(--gradient-background)]
+                                            opacity-0
+                                            transition-opacity duration-300"></span>
+
+                                        <span
+                                        class="toggle-ball
+                                            absolute left-[3px] top-[3px]
+                                            z-10
+                                            w-[14px] h-[14px]
+                                            rounded-full
+                                            bg-content-primary
+                                            transition-transform duration-300 ease-in-out"></span>
+                                    </span>
+
+                                    <span class="text-[13px] leading-none text-content-primary font-sora">
+                                        Não repetir número
+                                    </span>
+                    </label>
+                    <button class="btn-gradient-border bg-[var(--background-tertiary)] w-full h-15 rounded-lg text-white font-sora flex items-center justify-center gap-2 my-5" id="button" type="submit">Sortear <img src="assets/imgs/Frame3.svg" alt="" ></button>
+                </form>
+
+        </section>
+
+        <section id="resultSection" class="flex flex-col items-center gap-2 is-hidden">
+                <h3 class="text-white font-semibold font-sora text-2xl">
+                    Resultado do sorteio
+                </h3>
+
+                <span class="text-gray-400 font-roboto-flex">
+                    <span id="resultCount">1</span>º resultado
+                </span>
+
+                <div id="resultStage" class="result-stage">
+                    <div class="trail-smoke" aria-hidden="true"></div>
+
+                    <ul id="resultList" class="result-list"></ul>
+                </div>
+                <button class="btn-gradient-border bg-[var(--background-tertiary)] w-full h-15 rounded-lg text-white font-sora flex items-center justify-center gap-2" id="reSorter">Sortear novamente<img src="assets/imgs/Frame4.svg" alt=""></button>
+            </section>
+            <p id="errorMessage" class="hidden text-red-300 font-sora text-sm mt-4"></p>
+    </main>
+
+
+    <script src="assets/script.js" defer></script>
+</body>
+</html>

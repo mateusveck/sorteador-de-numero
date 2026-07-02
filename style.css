@@ -1,0 +1,60 @@
+@import url(assets/global.css); 
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,XOPQ,XTRA,YOPQ,YTDE,YTFI,YTLC,YTUC@8..144,100..1000,96,468,79,-203,738,514,712&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Sora:wght@100..800&display=swap');
+
+body{
+    background-image: url(assets/imgs/Shapes.png);
+    background-color: black;
+}
+
+.btn-gradient-border {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.btn-gradient-border::before {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    border-radius: inherit;
+
+    background: var(--gradient-border);
+    background-size: 300% 300%;
+
+    animation: borderAnimation 3s linear infinite;
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    pointer-events: none;
+}
+
+.btn-gradient-border:hover::before {
+  opacity: 1;
+}
+
+@keyframes borderAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
