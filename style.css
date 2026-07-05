@@ -58,3 +58,452 @@ body{
 }
 
 
+/* animaçao dos numeros sorteados */
+
+.result-stage {
+  position: relative;
+  width: 100%;
+  min-height: 220px;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  overflow: visible;
+  isolation: isolate;
+  margin-top: 1.5rem;
+}
+
+.result-list {
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 18px;
+
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.number-slot {
+  position: relative;
+
+  width: 58px;
+  height: 80px;
+
+  flex: 0 0 58px;
+}
+
+.result-number {
+  position: absolute;
+  left: 50%;
+  top: 0;
+
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Sora", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+
+  color: #151018;
+  background: linear-gradient(145deg, #e7b7ff, #b979df);
+
+  box-shadow:
+    0 0 18px rgba(206, 129, 255, 0.6),
+    inset 0 0 12px rgba(255, 255, 255, 0.25);
+
+  transform: translateX(-50%);
+  will-change: transform, opacity, filter;
+}
+
+.result-number.is-trail {
+  z-index: 2;
+  opacity: 0;
+
+  animation: numberTrail 1.25s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: var(--delay);
+}
+
+.result-number.is-final {
+  z-index: 5;
+  opacity: 0;
+
+  border: 2px solid rgba(255, 255, 255, 0.65);
+
+  box-shadow:
+    0 0 0 4px rgba(224, 154, 255, 0.15),
+    0 0 22px rgba(224, 154, 255, 0.95),
+    0 0 48px rgba(170, 80, 255, 0.55),
+    inset 0 0 14px rgba(255, 255, 255, 0.35);
+
+  animation: finalNumberPop 0.55s cubic-bezier(0.2, 1.4, 0.4, 1) forwards;
+}
+
+.trail-smoke {
+  position: absolute;
+  left: 50%;
+  top: -330px;
+
+  width: 150px;
+  height: 430px;
+
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1;
+
+  transform: translateX(-50%);
+
+  background:
+    radial-gradient(circle at 35% 15%, rgba(230, 190, 255, 0.4), transparent 18%),
+    radial-gradient(circle at 65% 35%, rgba(230, 190, 255, 0.28), transparent 20%),
+    radial-gradient(circle at 38% 58%, rgba(230, 190, 255, 0.24), transparent 22%),
+    radial-gradient(circle at 62% 80%, rgba(230, 190, 255, 0.22), transparent 18%);
+
+  filter: blur(14px);
+}
+
+.result-stage.is-animating .trail-smoke {
+  animation: smokeTrail 1.3s ease-out forwards;
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+@keyframes numberTrail {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform:
+      translateX(-50%)
+      translateX(var(--x))
+      translateY(calc(var(--y) - 70px))
+      rotate(calc(var(--rotation) - 25deg))
+      scale(0.45);
+  }
+
+  25% {
+    opacity: var(--opacity);
+    filter: blur(var(--blur));
+  }
+
+  65% {
+    opacity: var(--opacity);
+    filter: blur(var(--blur));
+    transform:
+      translateX(-50%)
+      translateX(var(--x))
+      translateY(var(--y))
+      rotate(var(--rotation))
+      scale(var(--scale));
+  }
+
+  100% {
+    opacity: 0;
+    filter: blur(12px);
+    transform:
+      translateX(-50%)
+      translateX(var(--x))
+      translateY(calc(var(--y) + 55px))
+      rotate(calc(var(--rotation) + 35deg))
+      scale(0.35);
+  }
+}
+
+@keyframes finalNumberPop {
+  0% {
+    opacity: 0;
+    transform:
+      translateX(-50%)
+      translateY(-18px)
+      scale(0.55);
+    filter: blur(8px);
+  }
+
+  60% {
+    opacity: 1;
+    transform:
+      translateX(-50%)
+      translateY(0)
+      scale(1.15);
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform:
+      translateX(-50%)
+      translateY(0)
+      scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes smokeTrail {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scaleY(0.8);
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scaleY(1.15);
+  }
+}
+/* ==========================================
+            RESPONSIVIDADE
+ ========================================== */
+
+/* ajuste base para o resultado não estourar com vários números */
+.result-list {
+  flex-wrap: wrap;
+  row-gap: 18px;
+  max-width: 100%;
+}
+
+.result-stage {
+  min-height: 240px;
+}
+
+/* tablets e telas médias */
+@media (max-width: 1024px) {
+  .container {
+    width: min(90%, 900px);
+  }
+
+  header.container {
+    margin-block: 3rem !important;
+  }
+
+  main.container {
+    grid-template-columns: 1fr !important;
+    gap: 3rem !important;
+    margin-block: 4rem !important;
+  }
+
+  main section:first-child {
+    max-width: 720px;
+  }
+
+  main section:first-child h2 {
+    font-size: 3.25rem !important;
+    line-height: 1.05;
+  }
+
+  #drawSection,
+  #resultSection {
+    max-width: 520px;
+    width: 100%;
+  }
+}
+
+/* celulares grandes */
+@media (max-width: 768px) {
+  .container {
+    width: min(92%, 640px);
+  }
+
+  header.container {
+    gap: 1rem !important;
+    margin-block: 2rem !important;
+  }
+
+  header img {
+    width: 2rem !important;
+  }
+
+  header h2 {
+    font-size: 2rem !important;
+  }
+
+  main.container {
+    margin-block: 3rem !important;
+    gap: 2.5rem !important;
+  }
+
+  main section:first-child h2 {
+    font-size: 2.6rem !important;
+  }
+
+  main section:first-child span {
+    line-height: 1.5;
+  }
+
+  #drawSection h3,
+  #resultSection h3 {
+    font-size: 1.5rem !important;
+  }
+
+  #drawSection form > div {
+    gap: 1rem !important;
+    justify-content: center;
+  }
+
+  #drawSection input {
+    width: 86px !important;
+    height: 72px !important;
+    font-size: 2.3rem !important;
+  }
+
+  #drawSection label {
+    font-size: 0.85rem;
+  }
+
+  .result-stage {
+    min-height: 280px;
+  }
+
+  .result-list {
+    max-width: 300px;
+    gap: 14px;
+    row-gap: 16px;
+  }
+
+  .number-slot {
+    width: 54px;
+    height: 76px;
+    flex-basis: 54px;
+  }
+
+  .result-number {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    font-size: 1.5rem;
+  }
+}
+
+/* celulares pequenos */
+@media (max-width: 480px) {
+  .container {
+    width: min(92%, 420px);
+  }
+
+  header.container {
+    margin-block: 1.5rem !important;
+  }
+
+  header h2 {
+    font-size: 1.7rem !important;
+  }
+
+  main.container {
+    margin-block: 2.5rem !important;
+    gap: 2rem !important;
+  }
+
+  main section:first-child h2 {
+    font-size: 2.15rem !important;
+    line-height: 1.08;
+  }
+
+  main section:first-child > span {
+    font-size: 0.8rem;
+  }
+
+  main section:first-child div {
+    margin-block: 1.75rem !important;
+  }
+
+  main section:first-child div img {
+    left: -18px !important;
+    width: 16px;
+  }
+
+  #drawSection {
+    margin-block: 1.5rem !important;
+  }
+
+  #drawSection form > div {
+    gap: 0.75rem !important;
+  }
+
+  #drawSection input {
+    width: 74px !important;
+    height: 64px !important;
+    font-size: 2rem !important;
+    border-radius: 0.65rem !important;
+  }
+
+  #drawSection label {
+    font-size: 0.75rem;
+  }
+
+  #drawSection button,
+  #resultSection button {
+    height: 3.5rem !important;
+    font-size: 0.9rem;
+  }
+
+  #errorMessage {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .result-stage {
+    min-height: 300px;
+    margin-top: 1rem;
+  }
+
+  .result-list {
+    max-width: 240px;
+    gap: 12px;
+    row-gap: 14px;
+  }
+
+  .number-slot {
+    width: 50px;
+    height: 70px;
+    flex-basis: 50px;
+  }
+
+  .result-number {
+    width: 50px;
+    height: 50px;
+    border-radius: 13px;
+    font-size: 1.35rem;
+  }
+
+  .trail-smoke {
+    width: 120px;
+    height: 360px;
+    top: -280px;
+  }
+}
+
+/* celulares muito estreitos */
+@media (max-width: 360px) {
+  main section:first-child h2 {
+    font-size: 1.85rem !important;
+  }
+
+  #drawSection form > div {
+    gap: 0.5rem !important;
+  }
+
+  #drawSection input {
+    width: 66px !important;
+    height: 58px !important;
+    font-size: 1.75rem !important;
+  }
+
+  #drawSection label {
+    font-size: 0.68rem;
+  }
+
+  .result-list {
+    max-width: 210px;
+  }
+}  
